@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/agora-box-logo.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <title>Agora Live Video Demo</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="local-video-container"></div>
+    <div id="local-media-controls">
+      <button id="mic-toggle" class="media-active">Mic</button>
+      <button id="video-toggle" class="media-active">Video</button>
+      <button id="leave-channel" class="media-active">Leave</button>
+    </div>
+    <div id="overlay" class="modal">
+      <div id="form-container">
+        <h1 id="form-header">Avatar Video Chat</h1>
+        <form id="join-channel-form">
+          <div id="form-body">
+            <div class="form-group">
+              <label for="form-rpm-url">Ready Player Me URL</label>
+              <input type="text" id="form-rpm-url" placeholder="http://models.readyplayer.me/<MODEL-ID>.glb" class="form-control">
+            </div>
+            <div id="form-footer">
+              <button type="submit" id="join-channel-btn">Join Channel</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
+
