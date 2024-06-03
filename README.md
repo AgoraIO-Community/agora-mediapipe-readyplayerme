@@ -1,6 +1,11 @@
 # Agora Virtual Avatars using MediaPipe
 The code in this repo demonstrates how to use MediaPipe and Agora to implement responsive virtual avatars within Agora Live Video streams.
 
+## Demo
+![build deploy to pages workflow](https://github.com/digitallysavvy/agora-mediapipe-readyplayerme/actions/workflows/deploy-to-pages.yaml/badge.svg)  
+Ping the token server: [<< Send Ping >>](https://agora-token-server-caak.onrender.com/ping)  
+Once token server responds, test the build: [https://digitallysavvy.github.io/agora-mediapipe-readyplayerme/](https://digitallysavvy.github.io/agora-mediapipe-readyplayerme/)
+
 ## Setup
 1. Clone the repo
 2. Copy `.env-example` file and rename to `.env`
