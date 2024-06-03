@@ -120,6 +120,8 @@ const handleJoin = async (event) => {
   await initDevices('music_standard', '1080_3')
   // Create video element
   const video = document.createElement('video')
+  video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+  video.setAttribute('playsinline', 'playsinline');
   // Create a new MediaStream using camera track and set it the video's source object
   video.srcObject = new MediaStream([localMedia.video.track.getMediaStreamTrack()])
   // wait for source to finish loading
