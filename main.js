@@ -1,10 +1,9 @@
+import AgoraRTC from 'agora-rtc-sdk-ng'
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/Addons.js'
-import { initScene, initRenderLoop, getGraph } from './threeD'
 import { FaceLandmarker, FilesetResolver } from '@mediapipe/tasks-vision'
+import { initScene, initRenderLoop, getGraph } from './threeD'
 import { showOverlayForm, createUserContainer, removeUserContainer, addVideoDiv, removeVideoDiv } from './ui'
-import AgoraRTC from 'agora-rtc-sdk-ng'
-
 
 // Create the Agora Client
 const client = AgoraRTC.createClient({ 
@@ -28,7 +27,8 @@ const localMedia = {
   },
 }
 
-let remoteUsers = {}                // Container for the remote streams
+// Container for the remote streams
+let remoteUsers = {}
 
 const Loglevel = {
   DEBUG: 0,
@@ -70,12 +70,9 @@ const handleJoin = async (event) => {
     glbInput.labels[0].textContent = '(Required) Ready Player Me URL'
     return
   }
-  // Hide overlay form
-  showOverlayForm(false)
-  // show media controls (mic, video, leave)            
-  document.getElementById('local-media-controls').style.display = 'block'   
+
   // get the local-user container div
-  const localUserContainer = document.getElementById('local-video-container') 
+  const localUserContainer = document.getElementById('local-user-container') 
   
   // show a loading animation
   const loadingDiv = document.createElement('div')
@@ -85,8 +82,6 @@ const handleJoin = async (event) => {
 
   // start the animation when the page loads
   const { scene, camera, renderer } = await initScene(localUserContainer)
-  // initialize media-pipe vision task
-  const faceLandmarker = await initVision()
   
   // use glb url to load Ready Player Me Avatar with morphtargets
   const rpmMorphTargetsURL = glbURL + '?morphTargets=ARKit&textureAtlas=1024'
@@ -115,6 +110,9 @@ const handleJoin = async (event) => {
     // outout loading details
     console.log(event)
   })
+
+  // initialize MediaPipe vision task
+  const faceLandmarker = await initVision()
 
   // Init the local mic and camera
   await initDevices('music_standard', '1080_3')
@@ -170,7 +168,6 @@ const handleJoin = async (event) => {
   const token = await getRtcToken(uid, channelName, 'publisher') 
   const localUid = await client.join(appid, channelName, token, uid)
 
-
   // update the url
   if (!params.has('c')){
      // use url params to pass the channel name
@@ -194,9 +191,14 @@ const handleJoin = async (event) => {
   localMedia.canvas.isActive = true
   await client.publish([localMedia.audio.track, localMedia.canvas.track])
   console.log('publishedTracks')
+
+  // Hide overlay form
+  showOverlayForm(false)
+  // show media controls (mic, video, leave)            
+  document.getElementById('local-media-controls').style.display = 'block'   
 }
 
-// init media-pipe vision
+// init MediaPipe vision
 const initVision = async () => {
   // load latest Vision WASM
   const vision = await FilesetResolver.forVisionTasks('https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm')
@@ -223,7 +225,7 @@ const initPredictLoop = (faceLandmarker, video) => {
     // while video is still streaming
     if (lastVideoTime !== video.currentTime) {
       lastVideoTime = video.currentTime
-      // run media-pipe task to detect faces in video frame
+      // run vison task to detect faces in video frame
       const result = faceLandmarker.detectForVideo(video, timeInMs)
       // get face matrix transformation for face 1
       const faceMatrix = result.facialTransformationMatrixes
@@ -249,7 +251,6 @@ const initDevices = async (audioConfig, cameraConfig) => {
   if (!localMedia.audio.track || !localMedia.video.track) {
     [ localMedia.audio.track, localMedia.video.track ] = await AgoraRTC.createMicrophoneAndCameraTracks({ audioConfig: audioConfig, videoConfig: cameraConfig })
   }
-
   // track audio state locally
   localMedia.audio.isActive = true
   localMedia.video.isActive = true
@@ -358,7 +359,7 @@ const handleLeaveChannel = async () => {
     btn.classList.remove('muted')         // Remove mute class
   });
   document.getElementById('container').replaceChildren()                   // Clear the remote user divs
-  document.getElementById('local-video-container').replaceChildren()       // Clear the local-user div
+  document.getElementById('local-user-container').replaceChildren()       // Clear the local-user div
   document.getElementById('local-media-controls').style.display = 'none'   // hide media controls (mic, video, leave etc)
   showOverlayForm(true)                                                    // Show the Join Form overlay
 }
