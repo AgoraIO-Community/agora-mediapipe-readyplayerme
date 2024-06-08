@@ -83,7 +83,7 @@ button:focus-visible {
   box-sizing: border-box;
 }
 
-#local-video-container { 
+#local-user-container { 
   position: absolute; 
   float: right;
   bottom: 27px;
@@ -92,7 +92,7 @@ button:focus-visible {
   height: 270px;
 }
 
-#local-video-container canvas {
+#local-user-container canvas {
   transform: scaleX(-1);
   border-radius: 10px;
 }
