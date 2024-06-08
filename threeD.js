@@ -7,8 +7,7 @@ export const initScene = async (containerDiv) => {
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(25, divBoundingRect.width/divBoundingRect.height, 0.1, 1000)
   camera.position.z = 2
-  // create new threejs renderer using canvas from DOM
-  const canvas = document.getElementById('canvas')
+  // create new threejs renderer
   const renderer = new THREE.WebGLRenderer({  antialias: true })
   renderer.setSize(divBoundingRect.width, divBoundingRect.height, false)
 
