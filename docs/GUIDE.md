@@ -341,3 +341,10 @@ The render loop renders the 3D scene onto a canvas. To publish the scene from th
   await client.publish([localMedia.audio.track, localMedia.canvas.track])
 ```
 
+## Next Steps
+And there you have it, how to use  Agora’s Video SDK for Web with MediaPipe's computer vision to enable custom 3D avatars. This example is a great base for building more complex ai driven features for extending reality, whether for engaging webinars, interactive education platforms, or any other application where live video plays a key role. Feel free to tweak, transform, and take this code to new heights!
+
+## Other Resources
+- Dive into the [Agora Documentation]() to better understand the features and capabilities of the Agora SDK. Explore the API reference, sample codes, and best practices.
+- Be part of the Agora developer community: Join the conversation on [X(Twitter)](https://twitter.com/AgoraIO), or [LinkedIn(https://www.linkedin.com/company/agora-lab-inc/)] to share experiences, and stay updated on the latest developments.
+- Need support? Reach out via [StackOverflow](https://stackoverflow.com/questions/tagged/agora.io) for advice on your implementation.
