@@ -318,7 +318,7 @@ blendShapes.forEach(blendShape => {
 })
 ```
 
-## ThreeJS to Agora Stream
+## ThreeJS to Agora Video Stream
 The render loop renders the 3D scene onto a canvas. To publish the scene from the `<canvas>` into Agora, create a `captureStream` and use the video track to initialize a custom video track. If you'd like a deeper explanation check out my guide on how to [Create an Agora Video Track using a Canvas Element](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
 
 ```javascript
