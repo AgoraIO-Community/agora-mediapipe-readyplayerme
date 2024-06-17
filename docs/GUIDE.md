@@ -130,23 +130,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 ## 3D & Avatar Setup
 One of the Prerequisites for this guide is a 3D avatar from ReadyPlaterMe because ReadyPlaterMe provides 3D files that adhere to the name conventions outlined by [Apple's ARKit ARFaceAnchor locations](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). These definitions are industry standard and match the output from MediaPipe.
 
-Getting back to the code, when the user clicks the join button, initialize the ThreeJS scene and append the `<canvas>`  to  the `localUserContainer`. After the scene is created, load the avatar using the `glbURL` from the user. After the 3D avatar is loaded, we'll traverse its scene graph and create an object with all the nodes. This will give us quick access to the `headMesh`. 
-
-There is a noticeable delay between the time it takes to initialize the scene and the moment the 3D avatar is loaded and ready for use. To let the user know it's loading it's good practice to display a loading animation and remove it once the 3D avatar is added to the scene.
+Getting back to the code, when the user clicks the "Join" button, initialize the ThreeJS scene and append the `<canvas>` to the `localUserContainer`. 
 
 ```javascript
 // get the local-user container div
 const localUserContainer = document.getElementById('local-user-container') 
 
-// show a loading animation
-const loadingDiv = document.createElement('div')
-loadingDiv.classList.add('lds-ripple')
-loadingDiv.append(document.createElement('div'))
-localUserContainer.append(loadingDiv)
-
 // create the scene and append canvas to localUserContainer
 const { scene, camera, renderer } = await initScene(localUserContainer)
+```
 
+Using the newly created scene, load the user's ReadyPlaterMe avatar using the `glbURL`. You'll notice URL parameters are appended to the glbURL. This is because blend shapes are not part of the default `.glb` file provided by ReadyPlaterMe. These parameters are part of the [ReadyPlaterMe RESTful API for Avatars](https://docs.readyplayer.me/ready-player-me/api-reference/rest-api/avatars/get-3d-avatars).
+
+Once the 3D avatar is loaded, we'll traverse its scene graph and create an object with all the nodes. This will give us quick access to the `headMesh`. 
+
+```javascript
 // append url parameters to glb url - load ReadyPlayerMe avatar with morphtargets
 const rpmMorphTargetsURL = glbURL + '?morphTargets=ARKit&textureAtlas=1024'
 let nodes
@@ -164,8 +162,6 @@ loader.load(rpmMorphTargetsURL,
   
   // add avatar to scene
   scene.add(avatar)
-  // remove the loading spinner
-  loadingDiv.remove()
 },
 (event) => {
   // outout loading details
@@ -173,9 +169,22 @@ loader.load(rpmMorphTargetsURL,
 })
 ```
 
-> You'll notice URL parameters are appended to the `glbURL`. This is because blend shapes are not part of the default glb file provide by ReadyPlaterMe. These parameters are part of the [ReadyPlaterMe RESTful API for Avatars](https://docs.readyplayer.me/ready-player-me/api-reference/rest-api/avatars/get-3d-avatars).
+To account for the noticeable delay between the time the scene is initialized and the moment the 3D avatar is loaded. It's good practice to display a loading animation to inform the user the model is loading and remove it once the 3D avatar is added to the scene.
+
+```javascript
+// show a loading animation
+const loadingDiv = document.createElement('div')
+loadingDiv.classList.add('lds-ripple')
+loadingDiv.append(document.createElement('div'))
+localUserContainer.append(loadingDiv)
+
+/* loader.load - success callback */
+loadingDiv.remove() // remove the loading spinner
+```
 
 ## Init video element with Agora
+![](/docs/images/Agora-to-video_element.png "Use Agora Video Track in <video/> element")
+
 We're using Agora to get camera access and create the video and audio tracks. We'll use the camera's video track as the source for the video element. If you'd like a deeper explanation check out my guide on using [Agora with custom video elements](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
 
 ```javascript
@@ -323,7 +332,9 @@ blendShapes.forEach(blendShape => {
 ```
 
 ## ThreeJS to Agora Video Stream
-The render loop renders the 3D scene onto a canvas. To publish the scene from the `<canvas>` into Agora, create a `captureStream` and use the video track to initialize a custom video track. If you'd like a deeper explanation check out my guide on how to [Create an Agora Video Track using a Canvas Element](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
+![](/docs/images/canvas-to-agora-video-track.png "<canvas> to Agora Video Track")
+
+The render loop renders the 3D scene onto a canvas. To publish the scene from the `<canvas>` into Agora, create a `captureStream` and use the video track to initialize a custom video track. If you'd like a deeper explanation check out my guide on how to [Create an Agora Video Track using a Canvas Element](https://medium.com/agora-io/create-an-agora-video-track-using-a-canvas-element-3cc39de2b4df).
 
 ```javascript
 // Get the canvas
