@@ -1,8 +1,8 @@
 # Add Realtime 3D Avatars to Live Video Streams
 
-In today’s rapidly evolving digital landscape, live streaming video is dominating real-time communication. Users now expect more immersive and customizable streaming options. Content creators are increasingly seeking creative new ways to stream themselves, giving rise to the demand for dynamic 3D avatars that mirror their movements and expressions. 
+In today's rapidly evolving digital landscape, live-stream video is dominating real-time communication. Users now expect more immersive and customizable streaming options. Content creators are increasingly seeking creative new ways to stream themselves, giving rise to the demand for dynamic 3D avatars that mirror their movements and expressions.
 
-Traditionally, real-time virtual avatars required complex motion capture equipment and sophisticated software, often making it inaccessible for everyday users and independent creators. However, artificial intelligence has changed this status quo as well. With advancements in computer vision,it's now possible to run sophisticated Ai aialgorithms on-device that can accurately capture and translate human facial gestures into digital form in real-time.
+Real-time virtual avatars traditionally required complex motion capture equipment and sophisticated software, often making them inaccessible to everyday users and independent creators. However, artificial intelligence has changed this status quo as well. With advancements in computer vision, it's now possible to run sophisticated AI algorithms on-device that can accurately capture and translate human facial gestures into digital form in real-time.
 
 In this walkthrough, we'll look at how to integrate 3D virtual avatars into your [Agora](https://www.agora.io) live streams using [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide) and 3D avatars from [ReadyPlayerMe](https://readyplayer.me/). Whether you're looking to enhance audience engagement or just add a fun, creative twist to your app's video calls/live broadcasts, this guide will provide you with the necessary steps to bring 3D virtual personas to life.
 
@@ -16,9 +16,9 @@ In this walkthrough, we'll look at how to integrate 3D virtual avatars into your
 - A 3D avatar from [ReadyPlayerMe](https://readyplayer.me/)
 
 ## Agora + MediaPipe project
-To keep this guide concise, I'm assuming you have some understanding of how to implement the Agora Video SDK into a web-app. If you dont, check out my guide on [ Building a Group Video Chat Web App](https://medium.com/agora-io/a-simple-approach-to-building-a-group-video-chat-web-app-0b8a6cacfdfd).
+To keep this guide concise, I assume you understand how to implement the Agora Video SDK into a web app; if you don't, check out my guide on [ Building a Group Video Chat Web App](https://medium.com/agora-io/a-simple-approach-to-building-a-group-video-chat-web-app-0b8a6cacfdfd).
 
-To get started, download the [demo project](https://github.com/digitallysavvy/agora-mediapipe-readyplayerme). With the code downloaded, navigate to the project folder in the terminal and use `npm` to install the node pacakges.
+To get started, download the [demo project](https://github.com/digitallysavvy/agora-mediapipe-readyplayerme). With the code downloaded, navigate to the project folder in the terminal and use `npm` to install the node packages.
 
 ```bash
 git clone git@github.com:digitallysavvy/agora-mediapipe-readyplayerme.git
@@ -27,9 +27,9 @@ npm i
 ```
 
 ## Core Structure (HTML) 
-Let’s start with the html structure in [`index.html`](index.html), at the top of the `<body>` are the "call" UI elements: a container for the remote videos, a container for the local user with buttons for muting and unmuting the audio/video and a button to leave the chat. 
+Let’s start with the HTML structure in [`index.html`](index.html), at the top of the `<body>` are the "call" UI elements. This includes a container for the remote videos, a container for the local user with buttons for muting and unmuting the audio/video, and a button to leave the chat.
 
-Aside from the call UI, there's an overlay screen that will allow users to input the URL to their avatars, and a button to join the channel.
+Aside from the call UI, we'll need an overlay screen for users to input the URL to their avatars, and a button to join the channel.
 
 ```HTML
 <!doctype html>
@@ -72,7 +72,7 @@ Aside from the call UI, there's an overlay screen that will allow users to input
 
 ## Agora Client and data stores
 In [`main.js`](/main.js) we create a new Agora client to use Agora's SDK and use `localMedia` to keep a reference to the audio, video, and canvas tracks and their active state. We'll need `headRotation` and `blendShapes` to store the data we get from MediPipe's computer vision.
-`
+
 ```javascript
 // Create the Agora Client
 const client = AgoraRTC.createClient({ 
@@ -106,7 +106,7 @@ let blendShapes
 ```
 
 ### DOMContentLoaded and Event Listeners
-When the page loads, we'll add listeners for the Agora events, the media controls and form submission. With the listeners in place we're ready to show the overlay form.
+When the page loads, we'll add listeners for the Agora events, the media controls, and the form submission. With the listeners in place, we're ready to show the overlay form.
 
 ```javascript
 // Wait for DOM to load
@@ -126,9 +126,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 > NOTE: Make sure to add client event listensers before joining the channel, otherwise some events may not get triggered as expected.
 
 ## 3D & Avatar Setup
-When the user clicks the join button, initialize the ThreeJS scene and append the `<canvas>`  to  the `localUserContainer`. After the scene is created, load the avatar using the `glbURL` from the user. After the 3D avatar is loaded, we'll traverse it's scene graph and create a an object with all the nodes. This will give us quick access to the `headMesh`. 
+When the user clicks the join button, initialize the ThreeJS scene and append the `<canvas>`  to  the `localUserContainer`. After the scene is created, load the avatar using the `glbURL` from the user. After the 3D avatar is loaded, we'll traverse its scene graph and create an object with all the nodes. This will give us quick access to the `headMesh`. 
 
-There is a noticable delay between the time it takes to initialize the scene to the moment the 3D avatar is loaded and ready for use. To let the user know it's loading it's good practice to display a loading animation and remove it once the 3D avatar is added to the scene.
+There is a noticeable delay between the time it takes to initialize the scene and the moment the 3D avatar is loaded and ready for use. To let the user know it's loading it's good practice to display a loading animation and remove it once the 3D avatar is added to the scene.
 
 ```javascript
 // get the local-user container div
@@ -172,7 +172,7 @@ loader.load(rpmMorphTargetsURL,
 > Note: There is a noticable delay when loading 3D avatars directly from ReadyPlayerMe.
 
 ## Init video element with Agora
-We're going to use Agora to get camera access and create our video and audio tracks. We'll use the camera's video track as the the source for the video element. If you'd like a deeper explanation check out my guide on using [Agora with custom video elements](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
+We're using Agora to get camera access and create the video and audio tracks. We'll use the camera's video track as the source for the video element. If you'd like a deeper explanation check out my guide on using [Agora with custom video elements](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
 
 ```javascript
 // Init the local mic and camera
@@ -185,7 +185,7 @@ video.setAttribute('playsinline', 'playsinline');
 video.srcObject = new MediaStream([localMedia.video.track.getMediaStreamTrack()])
 ```
 ## MediaPipe Setup
-Before we can detect faces and facial gestures, we need to download the lastest WASM files for MediaPipe's computer vision and configure a `FaceLandmarker` task. In the face landmarks configuration, we'll set the `faceLandmarker` to ouput blendshape weights and facial transformations. These two settings are important because when we run the prediction loop we'll need access to that data. 
+Before we can detect faces and facial gestures, we need to download the latest WASM files for MediaPipe's computer vision and configure a `FaceLandmarker` task. In the face landmarks configuration, we'll set the `faceLandmarker` to output weights for blend shapes (shape keys) and facial transformations. These two settings are important because we'll need access to that data when we run the prediction loop. 
 
 ```javascript
 // initialize MediaPipe vision task
@@ -210,7 +210,7 @@ const initVision = async () => {
 ```
 
 ### Computer Vision Prediction Loop
-With the `faceLandmarker` and `<video/>` set up, we can start a prediction loop to run MediaPipe's coputer vision task on every frame of the video. As the prediction returns a result called it will give us access to the `facialTransformationMatrixes` which allow us to calculate the `headRotation`. The prediction result also gives us estimated blendshape weights for the face mesh. 
+With the `faceLandmarker` and `<video/>` set up, we can start a prediction loop to run MediaPipe's computer vision task on every video frame. As the prediction returns a result it will give us access to the `facialTransformationMatrixes` which allows us to calculate the `headRotation`. The prediction result also gives us estimated weights for the blend shapes in the face mesh.
 
 ``` javascript 
 video.addEventListener("loadeddata", () => {
@@ -236,7 +236,7 @@ const initPredictLoop = (faceLandmarker, video) => {
         const matrix = new THREE.Matrix4().fromArray(faceMatrix[0].data)
         headRotation =  new THREE.Euler().setFromRotationMatrix(matrix)
       }
-      // get blendshape predictions for face 1
+      // get blend shape predictions for face 1
       const blendShapePredictions = result.faceBlendshapes
       if (blendShapePredictions && blendShapePredictions.length > 0){
         blendShapes = blendShapePredictions[0].categories
@@ -275,7 +275,7 @@ initRenderLoop(scene, camera, renderer, (time) => {
   nodes.Head.rotation.set(headRotation.x, headRotation.y, headRotation.z)
   nodes.Neck.rotation.set(headRotation.x/2, headRotation.y/2, headRotation.z/2)
   nodes.Spine1.rotation.set(headRotation.x/3, headRotation.y/3, headRotation.z/3)
-  // loop through the blendshapes
+  // loop through the blend shapes
   blendShapes.forEach(blendShape => {
     const headMesh = nodes.Wolf3D_Avatar
     const blendShapeIndex = headMesh.morphTargetDictionary[blendShape.categoryName]
@@ -286,13 +286,13 @@ initRenderLoop(scene, camera, renderer, (time) => {
 })
 ```
 
-You may notice that by default the mouth movement is only visible when you exagerate your facial expressions. This isn't typically how people's face moves when they speak. To make the avatar appear more responsive we can exagerate the blendshape scores. 
+You may notice that by default the mouth movement is only visible when you exaggerate your facial expressions. This isn't typically how someone's face moves when they speak. To compensate for this, we can exaggerate the blend shape `score` to make the avatar's mouth appear more responsive.
 
-Make a list of the blendshapes we want to target, set a multiplier for the base score, along with upper and lower thresholds for when to apply the exagerations. The threshold helps us avoid exagerating the blendshapes when the mouth should be closed or when the user's expression is already exagerated. 
+Let's list all the blend shapes we want to target and set a multiplier for the base score. To avoid showing mouth movement when there shouldn't be or over-exaggerating, we'll set up a threshold with upper and lower limits.
 
 ```javascript
-// mouth blendshapes
-const mouthBlendshapes = [
+// mouth blend shapes
+const mouthBlendShapes = [
   'mouthSmile_L', 'mouthSmile_R', 'mouthFrown_L','mouthFrown_R',
   'mouthOpen', 'mouthPucker','mouthWide','mouthShrugUpper','mouthShrugLower',
 ]
@@ -301,16 +301,16 @@ const exagerationMultiplier = 1.5
 const threshold ={ min: 0.25, max: 0.6}
 ```
 
-While we're looping through the blendshaps to apply the score, check for the mouth blendshapes and if they're within the threshold. 
+To apply the multiplier, we need to check for specific keys in the mouthBlendShapes list. We can do this within the same loop we use to apply the score. When we identify the mouth blend shapes, we'll also verify if they're within the threshold.
 
 ```javascript
- // loop through the blendshapes
+ // loop through the blend shapes
 blendShapes.forEach(blendShape => {
   const headMesh = nodes.Wolf3D_Avatar
   const blendShapeIndex = headMesh.morphTargetDictionary[blendShape.categoryName]
   if (blendShapeIndex >= 0) {
-    // exagerate the score for the mouth blendshapes
-    if (mouthBlendshapes.includes[blendShape.categoryName] && blendShape.score > threshold.min && blendShape.score < threshold.max ) {
+    // exaggerate the score for the mouth blend shapes
+    if (mouthBlendShapes.includes[blendShape.categoryName] && blendShape.score > threshold.min && blendShape.score < threshold.max ) {
       blendShape.score *= exagerationMultiplier
     }
     headMesh.morphTargetInfluences[blendShapeIndex] = blendShape.score
@@ -322,31 +322,28 @@ blendShapes.forEach(blendShape => {
 The render loop renders the 3D scene onto a canvas. To publish the scene from the `<canvas>` into Agora, create a `captureStream` and use the video track to initialize a custom video track. If you'd like a deeper explanation check out my guide on how to [Create an Agora Video Track using a Canvas Element](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
 
 ```javascript
-  // Get the canvas
-  const canvas = renderer.domElement
-  // Set the frame rate
-  const fps = 30
-  // Create the captureStream
-  const canvasStream = canvas.captureStream(fps)
-  // Get video track from canvas stream
-  const canvasVideoTrack = canvasStream.getVideoTracks()[0]
-  // use the canvasVideoTrack to create a custom Agora Video track
-  const customAgoraVideoTrack = AgoraRTC.createCustomVideoTrack({
-    mediaStreamTrack: canvasVideoTrack,
-    frameRate: fps
-  })
-  localMedia.canvas.track = customAgoraVideoTrack
-  localMedia.canvas.isActive = true
-  // publish the canvas track into the channel
-  await client.publish([localMedia.audio.track, localMedia.canvas.track])
+// Get the canvas
+const canvas = renderer.domElement
+// Set the frame rate
+const fps = 30
+// Create the captureStream
+const canvasStream = canvas.captureStream(fps)
+// Get video track from canvas stream
+const canvasVideoTrack = canvasStream.getVideoTracks()[0]
+// use the canvasVideoTrack to create a custom Agora Video track
+const customAgoraVideoTrack = AgoraRTC.createCustomVideoTrack({
+  mediaStreamTrack: canvasVideoTrack,
+  frameRate: fps
+})
+localMedia.canvas.track = customAgoraVideoTrack
+localMedia.canvas.isActive = true
+// publish the canvas track into the channel
+await client.publish([localMedia.audio.track, localMedia.canvas.track])
 ```
 
 Once the local client joins the channel, the event listeners we set up earlier will take over. As users join the channel their video streams will be displayed in the `#container`.
 
 ## Next Steps
-And there you have it, how to use  Agora’s Video SDK for Web with MediaPipe's computer vision to enable custom 3D avatars. This example is a great base for building more complex ai driven features for extending reality, whether for engaging webinars, interactive education platforms, or any other application where live video plays a key role. Feel free to tweak, transform, and take this code to new heights!
+And there you have it, how to use Agora's Video SDK for Web with MediaPipe's computer vision to enable custom 3D avatars. Whether for engaging webinars, interactive education platforms, or any other application where live video plays a key role, this example is a great base.  Feel free to tweak and use this code to build more complex AI-driven features for extending reality.
 
-## Other Resources
-- Dive into the [Agora Documentation]() to better understand the features and capabilities of the Agora SDK. Explore the API reference, sample codes, and best practices.
-- Be part of the Agora developer community: Join the conversation on [X(Twitter)](https://twitter.com/AgoraIO), or [LinkedIn(https://www.linkedin.com/company/agora-lab-inc/)] to share experiences, and stay updated on the latest developments.
-- Need support? Reach out via [StackOverflow](https://stackoverflow.com/questions/tagged/agora.io) for advice on your implementation.
+Dive into the [Agora Documentation]() to better understand the features and capabilities of the Agora SDK. Explore the API reference, sample codes, and best practices.
