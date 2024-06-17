@@ -128,8 +128,8 @@ const handleJoin = async (event) => {
     initPredictLoop(faceLandmarker, video)  // start face landmarks prediction loop
   })
 
-  // list of the mouth blendshapes
-  const mouthBlendshapes = [
+  // list of the mouth blend shapes
+  const mouthBlendShapes = [
     'mouthSmile_L', 'mouthSmile_R', 'mouthFrown_L','mouthFrown_R',
     'mouthOpen', 'mouthPucker','mouthWide','mouthShrugUpper','mouthShrugLower',
   ]
@@ -144,13 +144,13 @@ const handleJoin = async (event) => {
     nodes.Head.rotation.set(headRotation.x, headRotation.y, headRotation.z)
     nodes.Neck.rotation.set(headRotation.x/2, headRotation.y/2, headRotation.z/2)
     nodes.Spine1.rotation.set(headRotation.x/3, headRotation.y/3, headRotation.z/3)
-    // loop through the blendshapes
+    // loop through the blend shapes
     blendShapes.forEach(blendShape => {
       const headMesh = nodes.Wolf3D_Avatar
       const blendShapeIndex = headMesh.morphTargetDictionary[blendShape.categoryName]
       if (blendShapeIndex >= 0) {
-        // exagerate the score for the mouth blendshapes
-        if (mouthBlendshapes.includes[blendShape.categoryName] && blendShape.score > threshold.min && blendShape.score < threshold.max ) {
+        // exaggerate the score for the mouth blend shapes
+        if (mouthBlendShapes.includes[blendShape.categoryName] && blendShape.score > threshold.min && blendShape.score < threshold.max ) {
           blendShape.score *= exagerationMultiplier
         }
         headMesh.morphTargetInfluences[blendShapeIndex] = blendShape.score
@@ -233,7 +233,7 @@ const initPredictLoop = (faceLandmarker, video) => {
         const matrix = new THREE.Matrix4().fromArray(faceMatrix[0].data)
         headRotation =  new THREE.Euler().setFromRotationMatrix(matrix)
       }
-      // get blendshape predictions for face 1
+      // get blend shape predictions for face 1
       const blendShapePredictions = result.faceBlendshapes
       if (blendShapePredictions && blendShapePredictions.length > 0){
         blendShapes = blendShapePredictions[0].categories
