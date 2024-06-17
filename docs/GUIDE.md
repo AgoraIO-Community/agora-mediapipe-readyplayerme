@@ -2,6 +2,8 @@
 
 In today's rapidly evolving digital landscape, live-stream video is dominating real-time communication. Users now expect more immersive and customizable streaming options. Content creators are increasingly seeking creative new ways to stream themselves, giving rise to the demand for dynamic 3D avatars that mirror their movements and expressions.
 
+![](/docs/images/Intro-Demo.gif "Real-Time Avatars with Agora")
+
 Real-time virtual avatars traditionally required complex motion capture equipment and sophisticated software, often making them inaccessible to everyday users and independent creators. However, artificial intelligence has changed this status quo as well. With advancements in computer vision, it's now possible to run sophisticated AI algorithms on-device that can accurately capture and translate human facial gestures into digital form in real-time.
 
 In this walkthrough, we'll look at how to integrate 3D virtual avatars into your [Agora](https://www.agora.io) live streams using [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide) and 3D avatars from [ReadyPlayerMe](https://readyplayer.me/). Whether you're looking to enhance audience engagement or just add a fun, creative twist to your app's video calls/live broadcasts, this guide will provide you with the necessary steps to bring 3D virtual personas to life.
@@ -126,7 +128,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 > NOTE: Make sure to add client event listensers before joining the channel, otherwise some events may not get triggered as expected.
 
 ## 3D & Avatar Setup
-When the user clicks the join button, initialize the ThreeJS scene and append the `<canvas>`  to  the `localUserContainer`. After the scene is created, load the avatar using the `glbURL` from the user. After the 3D avatar is loaded, we'll traverse its scene graph and create an object with all the nodes. This will give us quick access to the `headMesh`. 
+One of the Prerequisites for this guide is a 3D avatar from ReadyPlaterMe because ReadyPlaterMe provides 3D files that adhere to the name conventions outlined by [Apple's ARKit ARFaceAnchor locations](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). These definitions are industry standard and match the output from MediaPipe.
+
+Getting back to the code, when the user clicks the join button, initialize the ThreeJS scene and append the `<canvas>`  to  the `localUserContainer`. After the scene is created, load the avatar using the `glbURL` from the user. After the 3D avatar is loaded, we'll traverse its scene graph and create an object with all the nodes. This will give us quick access to the `headMesh`. 
 
 There is a noticeable delay between the time it takes to initialize the scene and the moment the 3D avatar is loaded and ready for use. To let the user know it's loading it's good practice to display a loading animation and remove it once the 3D avatar is added to the scene.
 
@@ -169,7 +173,7 @@ loader.load(rpmMorphTargetsURL,
 })
 ```
 
-> Note: There is a noticable delay when loading 3D avatars directly from ReadyPlayerMe.
+> You'll notice URL parameters are appended to the `glbURL`. This is because blend shapes are not part of the default glb file provide by ReadyPlaterMe. These parameters are part of the [ReadyPlaterMe RESTful API for Avatars](https://docs.readyplayer.me/ready-player-me/api-reference/rest-api/avatars/get-3d-avatars).
 
 ## Init video element with Agora
 We're using Agora to get camera access and create the video and audio tracks. We'll use the camera's video track as the source for the video element. If you'd like a deeper explanation check out my guide on using [Agora with custom video elements](https://medium.com/agora-io/custom-video-elements-with-javascript-and-agora-web-sdk-3c70d5dc1e09).
@@ -343,7 +347,22 @@ await client.publish([localMedia.audio.track, localMedia.canvas.track])
 
 Once the local client joins the channel, the event listeners we set up earlier will take over. As users join the channel their video streams will be displayed in the `#container`.
 
-## Next Steps
+## Testing
+Since we are using Vite, testing locally is easy, in the terminal navigate to the project folder and use npm to run our code.
+
+```bash
+npm run dev
+```
+
+With the server running, it's time to test our code. Go to ReadyPlayer.Me and copy the URL for your Avatar. Paste the URL into the form and click "Join".
+
+![](/docs/images/Screenshot_RPM_URL.png "Copy Avatar URL")
+
+To simulate multiple users in the channel, copy the url from your first tab and open another browser window and paste the url. Copying the url ensures you join the same channel, and using two windows ensures each canvas is visible. This is important because browsers are optimized to pause `AnimationFrame` requests when a website's tab is not in focus.
+
+![](/docs/images/Working-Demo.gif "Join as two users")
+
+## Fin
 And there you have it, how to use Agora's Video SDK for Web with MediaPipe's computer vision to enable custom 3D avatars. Whether for engaging webinars, interactive education platforms, or any other application where live video plays a key role, this example is a great base.  Feel free to tweak and use this code to build more complex AI-driven features for extending reality.
 
-Dive into the [Agora Documentation]() to better understand the features and capabilities of the Agora SDK. Explore the API reference, sample codes, and best practices.
+This guide covers two advanced video topics from Agora, Raw Video and Custom Video. Dive deeper into advanced video topics in the [Agora Video for Web Documentation](https://docs.agora.io/en/interactive-live-streaming/overview/product-overview?platform=web).
