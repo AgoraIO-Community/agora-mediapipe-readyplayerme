@@ -73,7 +73,7 @@ Aside from the call UI, we'll need an overlay screen for users to input the URL 
 ```
 
 ## Agora Client and data stores
-In [`main.js`](/main.js) we create a new Agora client to use Agora's SDK and use `localMedia` to keep a reference to the audio, video, and canvas tracks and their active state. We'll need `headRotation` and `blendShapes` to store the data we get from MediPipe's computer vision.
+In [`main.js`](/main.js) we create a new Agora client to use Agora's SDK and use `localMedia` to keep a reference to the audio, video, and canvas tracks and their active state. We'll need `headRotation` and `blendShapes` to store the data we get from MediaPipe's computer vision.
 
 ```javascript
 // Create the Agora Client
@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 > NOTE: Make sure to add client event listensers before joining the channel, otherwise some events may not get triggered as expected.
 
 ## 3D & Avatar Setup
-One of the Prerequisites for this guide is a 3D avatar from ReadyPlaterMe because ReadyPlaterMe provides 3D files that adhere to the name conventions outlined by [Apple's ARKit ARFaceAnchor locations](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). These definitions are industry standard and match the output from MediaPipe.
+One of the Prerequisites for this guide is a 3D avatar from ReadyPlayerMe because ReadyPlayerMe provides 3D files that adhere to the name conventions outlined by [Apple's ARKit ARFaceAnchor locations](https://developer.apple.com/documentation/arkit/arfaceanchor/blendshapelocation). These definitions are industry standard and match the output from MediaPipe.
 
 Getting back to the code, when the user clicks the "Join" button, initialize the ThreeJS scene and append the `<canvas>` to the `localUserContainer`. 
 
@@ -140,7 +140,7 @@ const localUserContainer = document.getElementById('local-user-container')
 const { scene, camera, renderer } = await initScene(localUserContainer)
 ```
 
-Using the newly created scene, load the user's ReadyPlaterMe avatar using the `glbURL`. You'll notice URL parameters are appended to the glbURL. This is because blend shapes are not part of the default `.glb` file provided by ReadyPlaterMe. These parameters are part of the [ReadyPlaterMe RESTful API for Avatars](https://docs.readyplayer.me/ready-player-me/api-reference/rest-api/avatars/get-3d-avatars).
+Using the newly created scene, load the user's ReadyPlayerMe avatar using the `glbURL`. You'll notice URL parameters are appended to the `glbURL`. This is because blend shapes are not part of the default `.glb` file provided by ReadyPlayerMe. These parameters are part of the [ReadyPlayerMe RESTful API for Avatars](https://docs.readyplayer.me/ready-player-me/api-reference/rest-api/avatars/get-3d-avatars).
 
 Once the 3D avatar is loaded, we'll traverse its scene graph and create an object with all the nodes. This will give us quick access to the `headMesh`. 
 
