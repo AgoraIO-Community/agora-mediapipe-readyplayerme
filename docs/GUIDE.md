@@ -29,7 +29,7 @@ npm i
 ```
 
 ## Core Structure (HTML) 
-Let’s start with the HTML structure in [`index.html`](index.html), at the top of the `<body>` are the "call" UI elements. This includes a container for the remote videos, a container for the local user with buttons for muting and unmuting the audio/video, and a button to leave the chat.
+Let’s start with the HTML structure in [`index.html`](index.html), at the top of the `<body>` are the "call" UI elements. These include a container for the remote videos, a container for the local user with buttons for muting and unmuting the audio/video, and a button to leave the chat.
 
 Aside from the call UI, we'll need an overlay screen for users to input the URL to their avatars, and a button to join the channel.
 
