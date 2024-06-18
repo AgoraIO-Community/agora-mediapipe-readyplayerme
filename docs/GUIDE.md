@@ -4,7 +4,7 @@ In today's rapidly evolving digital landscape, live-stream video is dominating r
 
 ![](/docs/images/Intro-Demo.gif "Real-Time Avatars with Agora")
 
-Real-time virtual avatars traditionally required complex motion capture equipment and sophisticated software, often making them inaccessible to everyday users and independent creators. However, artificial intelligence has changed this status quo as well. With advancements in computer vision, it's now possible to run sophisticated AI algorithms on-device that can accurately capture and translate human facial gestures into digital form in real-time.
+Real-time virtual avatars traditionally required complex motion capture equipment and sophisticated software, often making them inaccessible to everyday users and independent creators. However, this is another area where artificial intelligence is changing the status quo. With advancements in computer vision, it's now possible to run sophisticated AI algorithms on-device that can accurately capture and translate human facial gestures into digital form in real-time.
 
 In this walkthrough, we'll look at how to integrate 3D virtual avatars into your [Agora](https://www.agora.io) live streams using [MediaPipe](https://ai.google.dev/edge/mediapipe/solutions/guide) and 3D avatars from [ReadyPlayerMe](https://readyplayer.me/). Whether you're looking to enhance audience engagement or just add a fun, creative twist to your app's video calls/live broadcasts, this guide will provide you with the necessary steps to bring 3D virtual personas to life.
 
