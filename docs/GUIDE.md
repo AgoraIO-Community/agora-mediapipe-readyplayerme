@@ -320,7 +320,7 @@ const exagerationMultiplier = 1.5
 const threshold ={ min: 0.25, max: 0.6}
 ```
 
-To apply the multiplier, we need to check for specific keys in the mouthBlendShapes list. We can do this within the same loop we use to apply the score. When we identify the mouth blend shapes, we'll also verify if they're within the threshold.
+To apply the multiplier, we need to check for specific keys in the `mouthBlendShapes` list. We can do this within the same loop we use to apply the score. When we identify the mouth blend shapes, we'll also verify if they're within the threshold.
 
 ```javascript
  // loop through the blend shapes
