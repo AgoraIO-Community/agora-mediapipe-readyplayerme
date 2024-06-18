@@ -198,7 +198,13 @@ video.setAttribute('playsinline', 'playsinline');
 video.srcObject = new MediaStream([localMedia.video.track.getMediaStreamTrack()])
 ```
 ## MediaPipe Setup
-Before we can detect faces and facial gestures, we need to download the latest WASM files for MediaPipe's computer vision and configure a `FaceLandmarker` task. In the face landmarks configuration, we'll set the `faceLandmarker` to output weights for blend shapes (shape keys) and facial transformations. These two settings are important because we'll need access to that data when we run the prediction loop. 
+Before we start recognizing faces and their gestures, we first need to download the latest WebAssembly (WASM) files for MediaPipe's computer vision technologies. These files are essential for setting up the `FaceLandmarker` task, a computer vision algorithm that identifies specific "points of interest" on a user's face within the video stream. This precision enables the AI to track facial features effectively.
+
+In computer vision, executing a task involves sending a request to an AI, which then returns a level of confidence, often called a prediction. We'll continuously run this task for each video frame in a loop, which we've named the `predictionLoop`.
+
+In the face landmarks configuration, we'll set the `FaceLandmarker` to generate two crucial types of data: `outputFacialTransformationMatrixes` and `outputFaceBlendshapes: true`. The former provides estimates of the face's position, rotation, and scale, essential for tracking head movements. The latter might not be immediately apparent—it involves a 3D modeling technique known as blend shapes or shape keys. These allow a 3D mesh to smoothly transition between predefined shapes—like a mouth moving from "closed" (represented by 0) to "open" (represented by 1). This method is efficient because it saves 3D artists from having to model every potential facial movement; instead, the rendering engine interpolates these states.
+
+These settings are crucial because we use the transformation matrix to monitor head rotations and positions, while the blend shape predictions provide a range from 0 to 1 for ARKit standard blend shapes, covering 52 different facial movements.
 
 ```javascript
 // initialize MediaPipe vision task
