@@ -6,7 +6,7 @@ For an explination of the code: View [GUIDE.md](/docs/GUIDE.md)
 ## Demo
 ![build deploy to pages workflow](https://github.com/digitallysavvy/agora-mediapipe-readyplayerme/actions/workflows/deploy-to-pages.yaml/badge.svg)  
 Ping the token server: [<< Send Ping >>](https://agora-token-server-caak.onrender.com/ping)  
-Once token server responds, test the build: [https://digitallysavvy.github.io/agora-mediapipe-readyplayerme/](https://digitallysavvy.github.io/agora-mediapipe-readyplayerme/)
+Once token server responds, test the build: [https://digitallysavvy.github.io/agora-mediapipe-readyplayerme/](https://AgoraIO-Community.github.io/agora-mediapipe-readyplayerme/)
 
 ## Setup
 1. Clone the repo
